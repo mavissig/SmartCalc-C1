@@ -31,7 +31,7 @@ struct list *parser(const char *src, int *status) {
       const int type = get_type_functions(src, &i);
       current_node.type = type;
     }
-    root = s21_insert(root, current_node);
+    root = insert(root, current_node);
   }
   return root;
 }

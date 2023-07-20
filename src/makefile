@@ -54,13 +54,14 @@ dist:
 	rm -rf Archive_SmartCalc_C1/
 
 install: uninstall clean
-	mkdir build
 	cd calc && qmake && make && make clean && rm Makefile && cd ../ && mv $(APP_SRC_DIR) $(BUILD_DIR)
 
 uninstall:
-	rm -rf $(BUILD_DIR)Contents
+	rm -rf $(BUILD_DIR)calc.app
+	rm -rf $(TMP_DIR)sc_test $(TMP_DIR)*.info $(TMP_DIR)report
+	rm -rf $(BUILD_DIR)smartcalc_test
 
-test: clean 
+test:
 	$(CC) $(CFLAGS) $(CFILE) $(SOURCES_TEST) $(CFLAGS_TEST) -o $(OUTFILE_TEST)
 	./$(OUTFILE_TEST)
 
@@ -68,12 +69,12 @@ test: clean
 leaks: test
 	$(LEAK_CHECK) ./$(OUTFILE_TEST)
 
-gcov_report: clean
+gcov_report:
 	$(CC) $(CFLAGS_GCOV) $(CFILE) $(SOURCES_TEST) -o $(TMP_DIR)sc_test $(CFLAGS_TEST)
 	./$(TMP_DIR)sc_test
 	lcov -t "sc_test" -o $(TMP_DIR)test.info -c -d .
 	genhtml -o $(TMP_DIR)report $(TMP_DIR)test.info
-	rm -rf *.{a,o,dSYM,out} *.gcda *.gcno
+	@rm -rf *.{a,o,dSYM,out} *.gcda *.gcno
 
 open:
 	$(OS_OPEN) $(TMP_DIR)report/index.html
@@ -104,5 +105,5 @@ clean:
 	rm -f $(TMP_DIR)sc_test
 	#cd $(DEBUG_BUILD_DIR)/ && make clean && cd ..
 
-save: clean
+save: clean clang
 	git add . && git commit -m "auto save" && git push origin develop

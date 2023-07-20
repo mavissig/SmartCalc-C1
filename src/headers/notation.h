@@ -21,8 +21,8 @@ struct list {
   lexem_t *data;
 };
 
-void s21_remove(struct list *list);
-struct list *s21_insert(struct list *list, const lexem_t data);
+void remove_(struct list *list);
+struct list *insert(struct list *list, const lexem_t data);
 struct list *prefix_unary(struct list *root);
 struct list *polish_notation(struct list *root);
 int is_functions(const int current_type);

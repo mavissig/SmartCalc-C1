@@ -8,8 +8,8 @@
 
 #include "lexem_t.h"
 
-struct s21_stack_t {
-  struct s21_stack_t *next;
+struct stack_s {
+  struct stack_s *next;
   lexem_t *data;
 };
 

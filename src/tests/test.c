@@ -46,10 +46,10 @@ static void removeLexem(lexem_t*root){
     root = NULL;
 }
 
-static int removeStack(struct s21_stack_t*root);
+static int removeStack(struct stack_s*root);
 
-static int removeStack(struct s21_stack_t*root) {
-  struct s21_stack_t*temp = NULL;
+static int removeStack(struct stack_s*root) {
+  struct stack_s*temp = NULL;
   while (NULL != root){
     temp = root->next;
     root->data->type = 0;
@@ -75,7 +75,7 @@ static double getResultTime(const double begin, const double end);
 
 START_TEST(stack_check_1) {
   const double start = wtime();
-  struct s21_stack_t *stack = NULL;
+  struct stack_s *stack = NULL;
   for (int i = 0; i < SMALL_N; ++i) {
     lexem_t *lexem = allocateLexem();
     lexem->value = i;
@@ -100,7 +100,7 @@ END_TEST
 
 START_TEST(stack_check_2) {
   const double start = wtime();
-  struct s21_stack_t *stack = NULL;
+  struct stack_s *stack = NULL;
   for (int i = 0; i < N; ++i) {
     lexem_t *lexem = allocateLexem();
     lexem->value = i;
@@ -125,7 +125,7 @@ END_TEST
 
 START_TEST(stack_test_1) {
   const double start = wtime();
-  struct s21_stack_t *stack = NULL;
+  struct stack_s *stack = NULL;
   for (int i = 0; i < BIG_N; ++i) {
     lexem_t *lexem = allocateLexem();
     lexem->value = i;
@@ -144,13 +144,13 @@ START_TEST(stack_test_1) {
   ck_assert_ptr_null(stack);
   const double end = wtime();
   const double resultTime = getResultTime(start, end);
-  printf("Elapsed time test:s21_stack_test_1:%f seconds\n", resultTime);
+  printf("Elapsed time test:stack_test_1:%f seconds\n", resultTime);
 }
 END_TEST
 
 START_TEST(stack_test_2) {
   const double start = wtime();
-  struct s21_stack_t *stack = NULL;
+  struct stack_s *stack = NULL;
   for (int i = 0; i < N; ++i) {
     lexem_t *lexem = allocateLexem();
     lexem->type = type_bracket_l;
@@ -178,7 +178,7 @@ START_TEST(stack_test_2) {
   ck_assert_ptr_null(stack);
   const double end = wtime();
   const double resultTime = getResultTime(start, end);
-  printf("Elapsed time test:s21_stack_test_2:%f seconds\n", resultTime);
+  printf("Elapsed time test:stack_test_2:%f seconds\n", resultTime);
 }
 END_TEST
 
@@ -188,14 +188,14 @@ START_TEST(listest_1) {
   lexem_t *lexem = allocateLexem();
   lexem->value = 10;
   lexem->type = type_mul;
-  root = s21_insert(root, *lexem);
+  root = insert(root, *lexem);
   ck_assert_ptr_nonnull(root);
   ck_assert_double_eq(getValue(root), 10);
   ck_assert_int_eq(getType(root), type_mul);
   lexem_t *lexem_1 = allocateLexem();
   lexem_1->value = 10;
   lexem_1->type = type_mul;
-  root = s21_insert(root, *lexem_1);
+  root = insert(root, *lexem_1);
   ck_assert_ptr_nonnull(root->next);
   ck_assert_double_eq(getValue(root->next), 10);
   ck_assert_int_eq(getType(root->next), type_mul);

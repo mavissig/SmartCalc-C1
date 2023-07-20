@@ -14,17 +14,17 @@
  *
  * @param stack
  * @param data
- * @return struct s21_stack_t*
+ * @return struct stack_s*
  */
-struct s21_stack_t *push(struct s21_stack_t *stack, const lexem_t *data);
+struct stack_s *push(struct stack_s *stack, const lexem_t *data);
 
 /**
  * @brief функция снятия со стека
  *
  * @param stack
  * @param data
- * @return struct s21_stack_t*
+ * @return struct stack_s*
  */
-struct s21_stack_t *pop(struct s21_stack_t *stack, lexem_t *data);
+struct stack_s *pop(struct stack_s *stack, lexem_t *data);
 
 #endif  // SRC_HEADERS_STACK_H_

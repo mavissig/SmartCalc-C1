@@ -3,7 +3,7 @@
 double calculation(struct list* notation, const double x_value) {
   double result = 0.0;
   struct list* temp = notation;
-  struct s21_stack_t* stack = NULL;
+  struct stack_s* stack = NULL;
   while (NULL != temp) {
     const int current_type = temp->data->type;
     if (current_type == type_value || current_type == type_x) {

@@ -15,7 +15,7 @@ static void add_node(struct list *node, const lexem_t data) {
   }
 }
 
-struct list *s21_insert(struct list *root, const lexem_t data) {
+struct list *insert(struct list *root, const lexem_t data) {
   if (NULL == root) {
     root = (struct list *)calloc(1, sizeof(struct list));
     add_node(root, data);
@@ -31,7 +31,7 @@ struct list *s21_insert(struct list *root, const lexem_t data) {
   return root;
 }
 
-void s21_remove(struct list *list) {
+void remove_(struct list *list) {
   while (NULL != list) {
     struct list *temp = list;
     list = list->next;
@@ -73,12 +73,12 @@ static int is_unary(const int type) {
 
 struct list *polish_notation(struct list *root) {
   struct list *notation = NULL;
-  struct s21_stack_t *stack = NULL;
+  struct stack_s *stack = NULL;
   struct list *temp = root;
   while (NULL != temp) {
     const int current_type = temp->data->type;
     if (current_type == type_value || current_type == type_x) {
-      notation = s21_insert(notation, *temp->data);
+      notation = insert(notation, *temp->data);
     }
     if (is_arithmetic(current_type) || is_functions(current_type) ||
         current_type == type_bracket_l) {
@@ -88,7 +88,7 @@ struct list *polish_notation(struct list *root) {
                is_arithmetic(stack->data->type)) {
           lexem_t data = {.type = type_init, .value = 0.0};
           stack = pop(stack, &data);
-          notation = s21_insert(notation, data);
+          notation = insert(notation, data);
         }
       }
       stack = push(stack, temp->data);
@@ -97,7 +97,7 @@ struct list *polish_notation(struct list *root) {
       while (NULL != stack && type_bracket_l != stack->data->type) {
         lexem_t data = {.type = type_init, .value = 0.0};
         stack = pop(stack, &data);
-        notation = s21_insert(notation, data);
+        notation = insert(notation, data);
       }
       lexem_t data = {.type = type_init, .value = 0.0};
       stack = pop(stack, &data);
@@ -105,7 +105,7 @@ struct list *polish_notation(struct list *root) {
         if (is_functions(stack->data->type) && type_mod != stack->data->type) {
           lexem_t data = {.type = type_init, .value = 0.0};
           stack = pop(stack, &data);
-          notation = s21_insert(notation, data);
+          notation = insert(notation, data);
         }
       }
     }
@@ -114,7 +114,7 @@ struct list *polish_notation(struct list *root) {
   while (NULL != stack) {
     lexem_t data = {.type = type_init, .value = 0.0};
     stack = pop(stack, &data);
-    notation = s21_insert(notation, data);
+    notation = insert(notation, data);
   }
   return notation;
 }
