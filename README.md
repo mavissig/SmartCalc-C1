@@ -21,7 +21,7 @@ Author : [Egor Kondratov(mavissig)](https://github.com/mavissig)
 
 ---
 
-![SmartCalc](../sc/misc/rus/images/smartcalc.jpg)
+![SmartCalc](./misc/rus/images/smartcalc.jpg)
 
 В рамках Учебного проекта я написал калькулятор, который производит вычисления на языке Си.
 
